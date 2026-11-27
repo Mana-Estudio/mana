@@ -26,14 +26,28 @@ Landing del estudio de desarrollo web Maná. Sitio estático (HTML + CSS + JS), 
   sitio. Para sumar una, se agrega otro `.arc-card` en `index.html` (mejor 7 o más, para que el giro no se vea).
   Sin JS es una tira que se desliza.
 
+## Rubros de la home: los que trabajamos
+
+La sección **Rubros** de la home lista, a mano en `index.html`, los rubros que trabajamos según el cerebro
+(`Mana-Estudio/cerebro`, `04 Clientes/`): Arquitectura, Jurídico, Arte, Regalos digitales y Construcción. Cada uno lleva
+qué necesita la web (de su guía o documento de funcionalidades) y sus **referencias**: sitios que se pueden recorrer, con
+captura (en `assets/img/proyectos/`). Solo van referencias que ya son públicas o nuestras (Bramanti y NAN, la plantilla
+jurídica, Florencia Passini, Ribbly). Las demos de prospectos que no mostramos todavía (por ejemplo, las que tienen
+`noindex`) no se suman sin acordarlo antes.
+
+- Para sumar un rubro: otro `.rbx-item` con su color (`--rb-c`) y `data-rubro-keys` con las claves de Radar que le
+  corresponden (por ejemplo `legal` para jurídico). Si Radar tiene diseños de ese rubro, aparece solo el link "Ver N
+  diseños del rubro"; si no responde, la lista queda igual.
+- Para sumar una referencia: otro `<li>` en su `.rbx-refs`, con una captura de 1200×750 en `assets/img/proyectos/`.
+
 ## Rubros: los diseños de Radar, solos
 
-La sección **Rubros** de la home, `/rubros/` y cada `/rubros/<rubro>` se arman con las plantillas que están cargadas y
+`/rubros/` y cada `/rubros/<rubro>` se arman con las plantillas que están cargadas y
 activas ("Usarla en las demos") en [Radar Panel](https://github.com/Damsh-bit/radar-panel). No hay nada que tocar acá:
 una plantilla nueva aparece al minuto, en su rubro, y un rubro aparece apenas tiene una. Radar las publica en
 `GET https://radar-panel-sandy.vercel.app/api/plantillas` (ver "Vitrina en Maná" en su README).
 
-- La home y `/rubros/` listan los rubros. En computadora, al pasar el mouse sale un abanico con tres de sus diseños
+- `/rubros/` lista los rubros. En computadora, al pasar el mouse sale un abanico con tres de sus diseños
   reales: el del frente se mueve y se recorre solo, los de los costados quedan quietos. En el celular, miniaturas
   dibujadas en los colores de cada diseño.
 - Cada vista previa es el sitio entero, así que se cargan de a dos, corren su entrada y se congelan (sin cuadros ni

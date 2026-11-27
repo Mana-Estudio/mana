@@ -1,11 +1,10 @@
-// Rubros list: the home section ([data-rubros="home"]) and the /rubros/ page ([data-rubros="index"]). Built from the
-// catalog Radar publishes, so a rubro shows up here as soon as it has an active template.
+// Rubros: the /rubros/ page ([data-rubros="index"]) is built from the catalog Radar publishes, so a rubro shows up there
+// as soon as it has an active template. The home section ([data-rubros="home"]) is the list of rubros we work in.
 import { loadCatalog, rubroUrl, plural, pad, escapeHtml } from './catalogo.js';
 import { mockupHtml } from './mockup.js';
 import { personalization, createPreview, prefetch } from './vitrina.js';
 
 const Mana = window.Mana || { reveal: () => {}, refresh: () => {}, reducedMotion: false };
-const HOME_LIMIT = 8;
 
 const ARROW = '<svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M4.5 11.5l7-7M5.5 4.5h6v6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>';
 
@@ -166,59 +165,25 @@ function countUp(el, n) {
   });
 }
 
-function swap(list, render) {
-  const M = window.Motion;
-  if (Mana.reducedMotion || !M || !M.animate) { render(); return; }
-  const out = M.animate(list, { opacity: [1, 0], y: [0, 10] }, { duration: 0.18, ease: 'easeIn' });
-  const done = () => {
-    render();
-    list.style.removeProperty('opacity');
-    list.style.removeProperty('transform');
-  };
-  if (out && out.then) out.then(done); else done();
-}
-
+// Home: the rubros we work in are written in the page (they come from the brain, with their references). Radar only
+// adds, to each one that has templates, a link to its designs. If Radar doesn't answer, the list stays as it is.
 async function initHome(section) {
-  const list = section.querySelector('[data-rubros-list]');
-  const chips = section.querySelector('[data-rubros-chips]');
-  const more = section.querySelector('[data-rubros-more]');
+  countUp(section.querySelector('[data-rubros-count]'), section.querySelectorAll('.rbx-item').length);
   let catalog;
   try {
     catalog = await loadCatalog();
   } catch (e) {
-    list.innerHTML = errorHtml('No pudimos cargar los rubros. Revisá la conexión y probá de nuevo.');
-    list.querySelector('[data-retry]').addEventListener('click', () => initHome(section));
     return;
   }
-  if (!catalog.rubros.length) { section.hidden = true; return; }
-
-  countUp(section.querySelector('[data-rubros-count]'), catalog.total);
-  const render = (cat) => {
-    const rubros = catalog.rubros.filter((r) => !cat || r.categoria === cat);
-    list.innerHTML = rubros.slice(0, HOME_LIMIT).map(rowHtml).join('');
-    revealRows(list);
-    if (more) {
-      const hidden = rubros.length > HOME_LIMIT;
-      more.hidden = !hidden;
-      if (hidden) more.querySelector('[data-rubros-more-label]').textContent = `Ver los ${rubros.length} rubros`;
-    }
-  };
-  render('');
-
-  if (chips && catalog.categorias.length > 1) {
-    const opts = [{ clave: '', nombre: 'Todos', n: catalog.rubros.length },
-      ...catalog.categorias.map((c) => ({ ...c, n: catalog.rubros.filter((r) => r.categoria === c.clave).length }))];
-    chips.innerHTML = opts.map((o, i) => `<button type="button" class="chip" data-cat="${escapeHtml(o.clave)}" aria-pressed="${i === 0}">${escapeHtml(o.nombre)}<span class="mono">${o.n}</span></button>`).join('');
-    chips.hidden = false;
-    Mana.reveal(chips, 0.1);
-    chips.addEventListener('click', (e) => {
-      const btn = e.target.closest('.chip');
-      if (!btn || btn.getAttribute('aria-pressed') === 'true') return;
-      chips.querySelectorAll('.chip').forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
-      swap(list, () => render(btn.dataset.cat));
-    });
-  }
-  floater((k) => catalog.rubro(k)).attach(list);
+  section.querySelectorAll('[data-rubro-keys]').forEach((item) => {
+    const link = item.querySelector('[data-rubro-designs]');
+    if (!link) return;
+    const rubro = item.dataset.rubroKeys.split(/\s+/).map((k) => catalog.rubro(k)).find(Boolean);
+    if (!rubro || !rubro.templates.length) return;
+    link.href = rubroUrl(rubro.clave);
+    link.textContent = `Ver ${plural(rubro.templates.length, 'diseño', 'diseños')} del rubro →`;
+    link.hidden = false;
+  });
   Mana.refresh();
 }
 
