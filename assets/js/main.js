@@ -22,6 +22,22 @@
     root.addEventListener('mouseout', handle(leave));
   };
 
+  // Videos inside reel cards (clones included): load on first sight, play only while visible.
+  function reelVideos() {
+    if (reducedMotion || !('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        const v = e.target;
+        if (e.isIntersecting) {
+          if (!v.getAttribute('src')) v.src = v.dataset.src;
+          const p = v.play();
+          if (p) p.catch(() => {});
+        } else if (!v.paused) v.pause();
+      });
+    }, { rootMargin: '200px' });
+    all('video[data-reel-video]').forEach((v) => io.observe(v));
+  }
+
   // ---------- Projects carousel ----------
   // Without motion (reduced motion / no JS) the reel stays a native, snap-scrolling
   // strip. With motion it becomes an endless auto-playing loop you can drag.
@@ -239,6 +255,7 @@
 
     // The carousel clones its cards, so it must exist before hover handlers are bound.
     all('[data-reel]').forEach(setupReel);
+    reelVideos();
 
     // Motion: reveals, hovers, cursor, scroll progress
     if (M && M.animate && M.inView) {
@@ -360,6 +377,7 @@
 
   if (reducedMotion) {
     all('[data-reel]').forEach(setupReel);
+    reelVideos();
   } else {
     startMotion();
   }

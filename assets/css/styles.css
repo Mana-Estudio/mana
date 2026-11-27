@@ -857,3 +857,5 @@ html.hb-lock body{padding-right:var(--hb-sb,0)}
 .fp-feat.ar-43{aspect-ratio:4/3}
 @media (max-width:899px){.fp-feat.ar-43{aspect-ratio:464/918}}
 .fp-video{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+/* Videos dentro de tarjetas del carrusel (Bramanti) */
+.reel-video{display:block;flex:1;min-height:0;width:100%;height:auto;object-fit:cover;object-position:left top;background:#2B251F}
