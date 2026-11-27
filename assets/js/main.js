@@ -216,6 +216,7 @@
       if (ST) gsap.registerPlugin(ST);
       gsap.context(() => {
         gsap.timeline({ defaults: { ease: 'expo.out' } })
+          .from(all('[data-g="bg"]'), { opacity: 0, scale: 1.08, duration: 2.4 }, 0)
           .from(all('[data-g="nav"]'), { y: -18, opacity: 0, duration: 1, stagger: 0.07 }, 0)
           .from(all('[data-g="word"]'), { yPercent: 120, duration: 1.4, stagger: 0.09 }, 0.15)
           .from(all('[data-g="acc"]'), { y: -36, rotation: -150, opacity: 0, duration: 1.2, ease: 'back.out(2.4)' }, 0.5)

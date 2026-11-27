@@ -59,6 +59,94 @@ a:hover{color:#0D1117}
 .progress{transform:scaleX(0);transform-origin:0 50%}
 .tilt-wrap{perspective:1100px}
 
+/* ---------- Home hero: full bleed, over a wall of our own sites (hero.js) ---------- */
+.hx{--hx-bg:#07182B;position:relative;isolation:isolate;overflow:hidden;display:flex;min-height:max(620px,100svh);margin-top:-76px;background:var(--hx-bg);color:#FFFFFF}
+.hx-bg{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hx-wall{--g:clamp(12px,1.6vw,24px);position:absolute;left:50%;top:50%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--g);width:max(150vw,1200px);height:calc(100% + 26vw);transform:translate(-50%,-50%) rotate(-12deg)}
+.hx-col{position:relative;overflow:hidden}
+.hx-col:nth-child(2){margin-top:-9%}
+.hx-col:nth-child(3){margin-top:-4%}
+.hx-col:nth-child(4){margin-top:-13%}
+.hx-track{display:flex;flex-direction:column;animation:hx-up 90s linear infinite;will-change:transform}
+.hx-col:nth-child(2) .hx-track{animation-duration:110s;animation-direction:reverse}
+.hx-col:nth-child(3) .hx-track{animation-duration:80s}
+.hx-col:nth-child(4) .hx-track{animation-duration:120s;animation-direction:reverse}
+@keyframes hx-up{to{transform:translate3d(0,-50%,0)}}
+.hx-shot{flex:none;display:block;aspect-ratio:1686/978;margin-bottom:var(--g);overflow:hidden;border-radius:clamp(8px,1vw,14px);background:#123150}
+.hx-shot img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0;filter:grayscale(1) contrast(1.08);opacity:.5}
+.hx-shade{position:absolute;inset:0;background:radial-gradient(ellipse 62% 56% at 50% 46%,rgba(7,24,43,.84),rgba(7,24,43,.5) 62%,rgba(7,24,43,.2)),linear-gradient(180deg,rgba(7,24,43,.78) 0,rgba(7,24,43,0) 22%,rgba(7,24,43,0) 66%,rgba(7,24,43,.92) 100%),linear-gradient(90deg,rgba(32,112,190,.34),rgba(86,179,242,.12) 50%,rgba(32,112,190,.34))}
+.hx-in{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;gap:clamp(48px,7vh,88px);padding-top:calc(76px + clamp(56px,10vh,128px));padding-bottom:clamp(28px,5vh,52px);text-align:center}
+.hx-main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.hx-kicker{display:inline-flex;align-items:center;gap:10px;margin:0;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.hx-dot{position:relative;flex:none;width:8px;height:8px}
+.hx-dot>span{position:absolute;inset:0;border-radius:50%;background:var(--mana)}
+.hx-title{margin:clamp(20px,2.6vw,32px) 0 0;font-size:clamp(54px,10.6vw,176px);line-height:.9;letter-spacing:-.05em;font-weight:500;color:#FFFFFF;text-shadow:0 2px 40px rgba(7,24,43,.35)}
+.hx-lead{margin:clamp(24px,2.8vw,36px) 0 0;max-width:500px;font-size:clamp(16px,1.3vw,19px);line-height:1.55;color:rgba(255,255,255,.84);text-wrap:pretty}
+.hx-ctas{margin-top:clamp(28px,3vw,40px)}
+.mana a.hx-cta{display:inline-flex;align-items:center;gap:14px;height:56px;padding:0 7px 0 26px;border-radius:999px;background:#FFFFFF;color:#0D1117;font-size:16px;font-weight:500;box-shadow:0 18px 40px -18px rgba(0,0,0,.5)}
+.hx-cta .bi{width:42px;height:42px;border-radius:50%;background:#0D1117;color:#FFFFFF;display:grid;place-items:center}
+.mana .hx a:focus-visible{outline-color:#FFFFFF}
+.hx-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px clamp(16px,4vw,64px);width:min(780px,100%);margin:0}
+.hx-stats>div{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+.hx-stats dt{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.hx-stats dd{margin:0;font-size:clamp(15px,1.45vw,20px);font-weight:500;letter-spacing:-.01em;color:#FFFFFF}
+html.hb-lock .hx-track,.hx.is-off .hx-track{animation-play-state:paused}
+@media (max-aspect-ratio:1/1){
+.hx-wall{width:max(190vw,640px);height:calc(100% + 40vw)}
+.hx-shot{aspect-ratio:9/16}
+.hx-col:nth-child(4){display:none}
+.hx-wall{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:560px){
+.hx-in{padding-top:calc(76px + 40px)}
+.hx-k1{display:none}
+.hx-title{font-size:13.2vw}
+.hx-stats{gap:12px}
+.hx-stats dt{font-size:10px;letter-spacing:.08em}
+.hx-stats dd{font-size:14px;text-wrap:balance}
+}
+
+/* Header over the hero: see-through and light, until the hero has gone by (hero.js) */
+.mana header.on-dark{background:transparent!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.mana header.on-dark.is-scrolled{background:rgba(7,24,43,.55)!important;-webkit-backdrop-filter:saturate(1.4) blur(16px)!important;backdrop-filter:saturate(1.4) blur(16px)!important;box-shadow:none}
+.mana header.on-dark a[aria-label^="Maná"],.mana header.on-dark .nav-links a{color:#FFFFFF}
+.mana header.on-dark a:focus-visible{outline-color:#FFFFFF}
+
+/* ---------- Home: "Qué hacemos", projects on an arc (hero.js) ---------- */
+.qh{position:relative;overflow:hidden;background:#EDF0F4;padding-top:clamp(80px,9vw,140px);padding-bottom:clamp(40px,5vw,80px)}
+.qh-head{display:flex;flex-direction:column;align-items:center;gap:clamp(20px,2.2vw,28px);text-align:center}
+.qh-title{margin:0;max-width:27ch;font-size:clamp(28px,3.1vw,46px);line-height:1.1;letter-spacing:-.04em;font-weight:500;color:#0D1117;text-wrap:balance}
+.arc{--w:clamp(148px,16vw,270px);position:relative;margin-top:clamp(44px,5vw,80px)}
+.arc-ring{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:8px clamp(20px,4vw,56px) 24px;scrollbar-width:none}
+.arc-ring::-webkit-scrollbar{display:none}
+.arc-card{flex:none;display:flex;flex-direction:column;align-items:center;gap:14px;width:var(--w);color:#0D1117;scroll-snap-align:center;-webkit-user-drag:none;user-select:none;-webkit-tap-highlight-color:transparent}
+.arc-media{position:relative;display:block;width:100%;aspect-ratio:4/5;overflow:hidden;border-radius:clamp(12px,1.2vw,18px);background:#DCE2E9;box-shadow:0 22px 44px -26px rgba(13,17,23,.5);transition:box-shadow .6s var(--e)}
+.arc-media>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0;pointer-events:none}
+.arc-cap{max-width:calc(100% + 40px);overflow:hidden;font-size:clamp(13px,1vw,15px);line-height:1.3;color:#5A6472;white-space:nowrap;text-overflow:ellipsis;transition:color .5s ease}
+.arc-pq{position:absolute;inset:0;background:radial-gradient(closest-side,rgba(240,122,42,.34),rgba(240,122,42,0) 75%) 50% 70%/120% 80% no-repeat,#0F1A2C}
+.arc-pq .pq-fig{top:16%;height:84%}
+.arc-pq-logo{position:absolute;left:9%;top:7%;width:30%;height:auto}
+.arc-line,.tour{display:none}
+.arc.is-live{overflow:hidden;height:var(--arc-h,auto)}
+.arc.is-live .arc-ring{display:block;position:relative;height:100%;overflow:visible;padding:0;scroll-snap-type:none;touch-action:pan-y;cursor:grab}
+.arc.is-live.is-dragging .arc-ring{cursor:grabbing}
+.arc.is-live.is-dragging .arc-card{pointer-events:none}
+.arc.is-live .arc-card{position:absolute;left:50%;top:0;margin-left:calc(var(--w) / -2);transform-origin:50% 0;will-change:transform,opacity}
+.arc.is-live .arc-line{display:block;position:absolute;left:50%;border:1px solid #C3CCD6;border-radius:50%;pointer-events:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent);mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent)}
+.arc-card.is-active .arc-media{box-shadow:0 0 0 3px #FFFFFF,0 0 0 7px color-mix(in oklch,var(--mana) 55%,transparent),0 34px 60px -26px color-mix(in oklch,var(--mana) 70%,rgba(13,17,23,.6))}
+.arc-card.is-active .arc-cap{color:#0D1117}
+.arc.is-live .tour{display:grid;position:absolute;left:50%;top:var(--tour-y,0);z-index:120;transform:translate(-50%,-50%)}
+.tour{place-items:center;width:112px;height:112px;border-radius:50%;background:#EDF0F4;color:#0D1117}
+.tour-ring{position:absolute;inset:6px;width:calc(100% - 12px);height:calc(100% - 12px);overflow:visible;animation:spin 24s linear infinite}
+.tour-ring text{font:500 9.5px/1 "Geist Mono",ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.16em;text-transform:uppercase;fill:currentColor}
+.tour-core{width:50px;height:50px;border-radius:50%;background:#0D1117;color:#FFFFFF;display:grid;place-items:center;transition:transform .6s var(--pop),background-color .35s ease,color .35s ease}
+.tour:hover .tour-core{transform:scale(1.1);background:var(--mana);color:#0D1117}
+.tour:hover .tour-core svg{animation:hop-down .9s var(--e) infinite}
+@keyframes hop-down{40%{transform:translateY(3px)}}
+html.hb-lock .tour-ring{animation-play-state:paused}
+@media (max-width:560px){.tour{width:96px;height:96px}.tour-core{width:44px;height:44px}}
+@media (prefers-reduced-motion:reduce){.hx-track,.tour-ring,.tour:hover .tour-core svg{animation:none}.arc-media,.arc-cap,.tour-core{transition:none}}
+
 /* ---------- Projects carousel ---------- */
 .reel{--h:clamp(220px,26vw,380px);--gap:clamp(16px,2vw,28px);--edge:clamp(20px,4vw,56px);position:relative;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .reel::-webkit-scrollbar{display:none}
@@ -626,22 +714,11 @@ html.hb-lock body{padding-right:var(--hb-sb,0)}
 .burst{position:fixed;z-index:95;width:0;height:0;pointer-events:none}
 .burst i{position:absolute;left:0;top:0;width:6px;height:6px;border-radius:50%}
 
-/* "Taking new projects": a tooltip */
-.tip{position:relative;cursor:default;outline:0}
-.tip::after{content:attr(data-tip);position:absolute;right:0;top:calc(100% + 10px);z-index:5;padding:8px 12px;border-radius:10px;background:#0D1117;color:#FFFFFF;font-size:11px;letter-spacing:.06em;white-space:nowrap;opacity:0;transform:translateY(-6px) scale(.96);transform-origin:100% 0;pointer-events:none;transition:opacity .3s ease,transform .45s var(--pop)}
-.tip:hover::after,.tip:focus-visible::after{opacity:1;transform:none}
-
 /* Hero: words lift a little and the highlight grows under "mejores." */
 .mana h1 [data-g="word"]{transition:translate .6s var(--e)}
 .mana h1 [data-g="word"]:hover{translate:0 -5%}
 .mana h1 [data-g="mark"]{transition:height .7s var(--e),bottom .7s var(--e)}
 .mana h1:hover [data-g="mark"]{height:.46em!important;bottom:.04em!important}
-
-/* Marquee: the phrase under the pointer turns into an outline and its dot grows */
-[data-g="marquee"] .d{transition:color .45s ease,-webkit-text-stroke-color .45s ease;-webkit-text-stroke:1.5px transparent}
-[data-g="marquee"] .d:hover{color:transparent;-webkit-text-stroke-color:#0D1117}
-[data-g="marquee"] .d+span{transition:scale .6s var(--pop),background-color .4s ease}
-[data-g="marquee"] .d:hover+span{scale:1.9}
 
 /* Project cards: lean toward the pointer, with a glare */
 .lean{transform:perspective(1400px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .7s var(--e)}

@@ -7,11 +7,24 @@ Landing del estudio de desarrollo web Maná. Sitio estático (HTML + CSS + JS), 
 - `rubros/rubro.html` — un rubro (`/rubros/<rubro>`, por la regla de `vercel.json`)
 - `assets/css/styles.css` — estilos
 - `assets/js/main.js` — animaciones (GSAP + Motion) y carrusel de proyectos
+- `assets/js/hero.js` — el hero y el carrusel en arco de "Qué hacemos" (abajo)
 - `assets/img/proyectos/` — imágenes reales de los proyectos (la figura y el logo de Polackio; el logo y las capturas de Ribbly)
 - `assets/js/hablemos.js` — el formulario de contacto "Hablemos" (abajo)
 - `assets/js/micro.js` — microinteracciones (abajo)
 - `legal/` — aviso legal, privacidad, cookies y botón de arrepentimiento; `assets/js/legal.js` — el aviso de cookies (abajo)
 - `assets/js/catalogo.js`, `rubros.js`, `rubro.js`, `vitrina.js`, `mockup.js` — los rubros (abajo)
+
+## El hero y "Qué hacemos"
+
+- **Hero**: ocupa toda la pantalla, con el encabezado encima. Atrás corre una pared de capturas de nuestros sitios
+  (Ribbly, Florencia Passini, Bramanti) en tono azul; en pantallas verticales usa las capturas de celular. Solo se
+  mueve mientras se ve, y se queda quieta con "reducir movimiento" o con el formulario abierto. Mientras el hero está
+  debajo, el encabezado es transparente con letras blancas (`on-dark` en `hero.js`); después vuelve a ser el de siempre.
+  Los tres datos de abajo (respuesta, archivo, quiénes) se cambian a mano en `index.html`.
+- **Qué hacemos**: las tarjetas de proyectos van sobre el borde de una rueda grande. Gira sola cada pocos segundos, se
+  arrastra, se mueve con las flechas y una tarjeta del costado se trae al centro con un clic; la del centro abre el
+  sitio. Para sumar una, se agrega otro `.arc-card` en `index.html` (mejor 7 o más, para que el giro no se vea).
+  Sin JS es una tira que se desliza.
 
 ## Rubros: los diseños de Radar, solos
 
